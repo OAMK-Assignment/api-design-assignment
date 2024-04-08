@@ -1,0 +1,142 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "Customer Management API",
+      "version": "1.0.0",
+      "description": "REST API for a simple customer management system"
+    },
+    "paths": {
+      "/customers": {
+        "get": {
+          "summary": "Get information on all customers",
+          "responses": {
+            "200": {
+              "description": "List of all customers",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Customer"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/customers/{id}": {
+        "get": {
+          "summary": "Get information on a specific customer",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "integer"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Information of the specific customer",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Customer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "put": {
+          "summary": "Modify an existing customer",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "integer"
+              }
+            }
+          ],
+          "requestBody": {
+            "description": "Updated customer information",
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Customer"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Customer modified successfully"
+            }
+          }
+        },
+        "delete": {
+          "summary": "Delete a specific customer",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "integer"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Customer deleted successfully"
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "schemas": {
+        "Customer": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer"
+            },
+            "companyName": {
+              "type": "string"
+            },
+            "companyAddress": {
+              "type": "string"
+            },
+            "contactPerson": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "phoneNumber": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                },
+                "role": {
+                  "type": "string"
+                }
+              },
+              "required": ["name", "phoneNumber", "email", "role"]
+            }
+          },
+          "required": ["id", "companyName", "companyAddress", "contactPerson"]
+        }
+      }
+    }
+  }
+  
